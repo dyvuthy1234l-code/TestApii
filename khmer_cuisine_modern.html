@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khmer Cuisine | ម្ហូបខ្មែរ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4a574;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --bg: #faf8f5;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(44,62,80,0.95), rgba(212,165,116,0.8)), 
+                        url('https://kimi-web-img.moonshot.cn/img/res.cloudinary.com/825c8efa98303c17b9de2acc383de6c154f8c3cd.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg), transparent);
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Controls Section */
+        .controls {
+            max-width: 1200px;
+            margin: -30px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .control-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #c4956a);
+            color: white;
+            box-shadow: 0 4px 15px rgba(212,165,116,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212,165,116,0.5);
+        }
+
+        .btn-secondary {
+            background: #ecf0f1;
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: #d5dbdb;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Stats */
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Food Grid */
+        .food-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--secondary);
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .food-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .food-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .food-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .food-image-wrapper {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .food-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .food-card:hover .food-image {
+            transform: scale(1.1);
+        }
+
+        .food-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .food-content {
+            padding: 25px;
+        }
+
+        .food-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .food-description {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .food-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .food-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .food-price span {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .btn-add {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add:hover {
+            background: var(--primary);
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px;
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #eee;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .control-card {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>រសជាតិខ្មែរ</h1>
+            <p>Authentic Khmer Cuisine & Traditional Flavors</p>
+        </div>
+    </section>
+
+    <!-- Controls -->
+    <div class="controls">
+        <div class="control-card">
+            <button class="btn btn-primary" onclick="fetchData()">
+                <span>🚀</span> Fetch API Data
+            </button>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search food..." onkeyup="searchFood()">
+            </div>
+
+            <button class="btn btn-secondary" onclick="clearData()">
+                <span>🗑️</span> Clear
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-container" id="statsContainer" style="display:none;">
+        <div class="stat-card">
+            <div class="stat-value" id="totalItems">0</div>
+            <div class="stat-label">Total Items</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="avgPrice">$0</div>
+            <div class="stat-label">Average Price</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="minPrice">$0</div>
+            <div class="stat-label">Lowest Price</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="maxPrice">$0</div>
+            <div class="stat-label">Highest Price</div>
+        </div>
+    </div>
+
+    <!-- Food Grid -->
+    <section class="food-section">
+        <h2 class="section-title">Our Menu</h2>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading delicious food...</p>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+            <h3>👨‍🍳 Ready to Serve</h3>
+            <p>Click "Fetch API Data" to load our menu</p>
+        </div>
+
+        <div class="food-grid" id="foodGrid"></div>
+    </section>
+
+    <script>
+        // API Data
+        const foodData = [
+    {
+        "id": 1,
+        "image": "https://pizzapop.com.mx/cdn/shop/products/image.png?v=1680849779",
+        "title": "Pizza",
+        "description": "Good Food",
+        "price": 3.50
+    },
+    {
+        "id": 2,
+        "image": "https://png.pngtree.com/png-clipart/20250106/original/pngtree-delicious-fresh-berger-food-png-image_18815120.png",
+        "title": "Burger",
+        "description": "Best Food",
+        "price": 5.70
+    },
+    {
+        "id": 3,
+        "image": "https://images.deliveryhero.io/image/fd-kh/LH/g0bt-hero.jpg?width=512&height=384&quality=45",
+        "title": "បាញ់ឆៀវ",
+        "description": "Good Food Khmer",
+        "price": 3.50
+    },
+    {
+        "id": 4,
+        "image": "https://asiatoursdesk.com/wp-content/uploads/2025/01/traditional-khmer-food-1.webp",
+        "title": "ទឺកគ្រឿ",
+        "description": "Good Food Khmer",
+        "price": 3.50
+    },
+    {
+        "id": 5,
+        "image": "https://www.shoreexcursions.asia/wp-content/uploads/2016/08/Typical-Khmer-Cambodia-Cuisine.jpg",
+        "title": "នំបញ្ជុក",
+        "description": "Good Food Khmer",
+        "price": 3.50
+    },
+    {
+        "id": 6,
+        "image": "https://pizzapop.com.mx/cdn/shop/products/image.png?v=1680849779",
+        "title": "Pizza",
+        "description": "Good Food",
+        "price": 3.50
+    },
+    {
+        "id": 7,
+        "image": "https://png.pngtree.com/png-clipart/20250106/original/pngtree-delicious-fresh-berger-food-png-image_18815120.png",
+        "title": "Burger",
+        "description": "Best Food",
+        "price": 5.70
+    },
+    {
+        "id": 8,
+        "image": "https://stc-vendors.oss-ap-southeast-1.aliyuncs.com/uploads/20250512/51e048a4865d24a6d72ab6a6f3a1dfa9.jpg",
+        "title": "បាញ់ឆៀវ",
+        "description": "Good Food Khmer",
+        "price": 3
+    },
+    {
+        "id": 9,
+        "image": "https://static.independent.co.uk/2024/07/04/10/iStock-1826839810.jpg",
+        "title": "ទឺកគ្រឿង",
+        "description": "Good Food Khmer",
+        "price": 3
+    },
+    {
+        "id": 10,
+        "image": "https://www.gocambodia.tours/wp-content/uploads/2024/06/Traditional-Khmer-Cuisine-with-go-laos-tours-7.jpg",
+        "title": "មឺកអាំង",
+        "description": "Good Food ",
+        "price": 3
+    },
+    {
+        "id": 11,
+        "image": "https://images.unsplash.com/photo-1601924582971-6f4ffec37c0c",
+        "title": "សម្លរ​ត្រី",
+        "description": "Delicious Khmer Fish Soup",
+        "price": 4.00
+    },
+    {
+        "id": 12,
+        "image": "https://images.unsplash.com/photo-1617196031052-813f06a3c02b",
+        "title": "គ្រឿងផ្សំបំពង",
+        "description": "Tasty Fried Snacks",
+        "price": 2.50
+    },
+    {
+        "id": 13,
+        "image": "https://images.unsplash.com/photo-1598511727986-92b38ab5a1b7",
+        "title": "បបរ​ខ្មែរ",
+        "description": "Traditional Khmer Rice",
+        "price": 1.50
+    },
+    {
+        "id": 14,
+        "image": "https://images.unsplash.com/photo-1622763382181-2e8e2a5ed5c1",
+        "title": "សាច់ជ្រូកអាំង",
+        "description": "Grilled Pork, Juicy & Tasty",
+        "price": 5.00
+    },
+    {
+        "id": 15,
+        "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
+        "title": "ស្លាបមាន់អាំង",
+        "description": "Delicious Grilled Chicken Wings",
+        "price": 4.50
+    },
+    {
+        "id": 16,
+        "image": "https://images.unsplash.com/photo-1617196031052-2b9b07a3b1c2",
+        "title": "ម្ជុល​ខ្មែរ",
+        "description": "Tasty Khmer Curry",
+        "price": 3.75
+    },
+    {
+        "id": 17,
+        "image": "https://images.unsplash.com/photo-1600891964599-6e61a2f24093",
+        "title": "ស៊ុបក្តាម",
+        "description": "Crab Soup, Fresh & Hot",
+        "price": 6.00
+    },
+    {
+        "id": 18,
+        "image": "https://images.unsplash.com/photo-1617196031052-8f2b07a3b1c3",
+        "title": "ត្រីអាំង",
+        "description": "Grilled Fish with Herbs",
+        "price": 5.50
+    },
+    {
+        "id": 19,
+        "image": "https://images.unsplash.com/photo-1601924582971-7f4ffec37c1d",
+        "title": "បាយឆា",
+        "description": "Fried Rice, Quick & Delicious",
+        "price": 3.25
+    },
+    {
+        "id": 20,
+        "image": "https://images.unsplash.com/photo-1622763382181-3e8e2a5ed5c2",
+        "title": "សម្លរ​ឆ្អិន",
+        "description": "Vegetable Soup Khmer Style",
+        "price": 2.75
+    }
+];
+
+        let currentData = [];
+        let allData = [];
+
+        async function fetchData() {
+            const loading = document.getElementById('loading');
+            const emptyState = document.getElementById('emptyState');
+            const statsContainer = document.getElementById('statsContainer');
+
+            loading.classList.add('active');
+            emptyState.style.display = 'none';
+
+            // Simulate API call
+            await new Promise(r => setTimeout(r, 1500));
+
+            allData = [...foodData];
+            currentData = [...foodData];
+
+            displayData(currentData);
+            updateStats(currentData);
+
+            loading.classList.remove('active');
+            statsContainer.style.display = 'grid';
+        }
+
+        function displayData(data) {
+            const grid = document.getElementById('foodGrid');
+            grid.innerHTML = '';
+
+            data.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'food-card';
+                card.innerHTML = `
+                    <div class="food-image-wrapper">
+                        <img src="${item.image}" alt="${item.title}" class="food-image" 
+                             onerror="this.src='https://via.placeholder.com/300x220?text=Khmer+Food'">
+                        <span class="food-badge">#${item.id}</span>
+                    </div>
+                    <div class="food-content">
+                        <h3 class="food-title">${item.title}</h3>
+                        <p class="food-description">${item.description}</p>
+                        <div class="food-footer">
+                            <div class="food-price">$${item.price.toFixed(2)}</div>
+                            <button class="btn-add">Order Now</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+
+                // Staggered animation
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 100);
+            });
+        }
+
+        function updateStats(data) {
+            const prices = data.map(i => i.price);
+            document.getElementById('totalItems').textContent = data.length;
+            document.getElementById('avgPrice').textContent = '$' + (prices.reduce((a,b) => a+b, 0) / prices.length).toFixed(2);
+            document.getElementById('minPrice').textContent = '$' + Math.min(...prices).toFixed(2);
+            document.getElementById('maxPrice').textContent = '$' + Math.max(...prices).toFixed(2);
+        }
+
+        function searchFood() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allData.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.description.toLowerCase().includes(query)
+            );
+            currentData = filtered;
+            displayData(filtered);
+            updateStats(filtered);
+        }
+
+        function clearData() {
+            document.getElementById('foodGrid').innerHTML = '';
+            document.getElementById('statsContainer').style.display = 'none';
+            document.getElementById('emptyState').style.display = 'block';
+            document.getElementById('searchInput').value = '';
+            currentData = [];
+            allData = [];
+        }
+    </script>
+</body>
+</html>
